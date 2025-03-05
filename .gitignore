@@ -1,13 +1,7 @@
-devel/
-logs/
-build/
-bin/
-lib/
-
 # Package Build Files
-*/build/
-*/log/
-*/install
-*/bin/
-*/lib/
-*/share/
+**/build/
+**/log/
+**/install/
+**/bin/
+**/lib/
+**/share/
