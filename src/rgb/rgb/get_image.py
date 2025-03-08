@@ -8,9 +8,11 @@ import cv2
 class MySubscriber(Node):
     def __init__(self):
         super().__init__('subscriber')
+        from . import CAMERA_TOPIC
+
         self.subscription = self.create_subscription(
             Image,
-            'oakd/rgb/preview/image_raw',
+            CAMERA_TOPIC,    
             self.my_callback, 
             10
         )

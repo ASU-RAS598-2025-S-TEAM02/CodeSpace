@@ -2,6 +2,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 from geometry_msgs.msg import Twist
+from . import C3
 
 class MoveToColor(Node):
     def __init__(self):
@@ -16,7 +17,8 @@ class MoveToColor(Node):
         )
 
         # Publisher for TurtleBot velocity commands
-        self.velocity_publisher = self.create_publisher(Twist, 'c3_05/cmd_vel', 10)
+        out_topic = [C3, 'cmd_vel'].join('/')
+        self.velocity_publisher = self.create_publisher(Twist, out_topic, 10)
 
         self.largest_red_blob = None
 

@@ -22,7 +22,7 @@ setup(
         'console_scripts': [
             f'image = {package_name}.get_image:main',
             f'blob_detect = {package_name}.blob_detect:main',
-            f'move_to_color = {package_name}.move_to_color:main'
+            f'move = {package_name}.move_to_color:main'
         ],
     },
 )

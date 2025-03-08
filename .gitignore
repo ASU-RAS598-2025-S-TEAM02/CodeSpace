@@ -5,3 +5,7 @@
 **/bin/
 **/lib/
 **/share/
+
+# Ignore resource and test folders
+**/resource/
+**/test/

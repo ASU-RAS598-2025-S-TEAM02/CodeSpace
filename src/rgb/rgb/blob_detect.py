@@ -5,16 +5,19 @@ from std_msgs.msg import String
 import cv2
 from cv_bridge import CvBridge
 import numpy as np
+import time
+from . import CAMERA_TOPIC, RPI
 
 class BlobDetector(Node):
     def __init__(self):
         super().__init__('object_detector_node')
         self.bridge = CvBridge()
 
+
         # Subscriber for image topic
         self.subscription = self.create_subscription(
             Image,
-            '/oakd/rgb/preview/image_raw',  # You can change this to your camera topic
+            CAMERA_TOPIC,
             self.image_callback,
             10
         )
@@ -23,7 +26,8 @@ class BlobDetector(Node):
         self.object_publisher = self.create_publisher(String, 'object_info', 10)
 
         # Publisher for blob details
-        self.blob_publisher = self.create_publisher(String, 'blob_details', 10)
+        output_topic = '/'.join([RPI,'blob_details'])
+        self.blob_publisher = self.create_publisher(String, output_topic, 10)
 
     def image_callback(self, msg):
         # Convert ROS Image message to OpenCV format
@@ -94,6 +98,10 @@ class BlobDetector(Node):
         return detected_objects
 
 def main(args=None):
+    # Add a delay here if you're using the Oak D camera directly
+    # However, since you're using ROS, ensure the camera is booted before running this script
+    time.sleep(2)  # Optional delay if needed
+
     rclpy.init(args=args)
 
     node = BlobDetector()
@@ -107,4 +115,3 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-
